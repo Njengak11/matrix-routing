@@ -26,9 +26,24 @@ const App=() => {
       zoom: 13
   });
     setMap(map)
+
+    const addMarker = () =>{
+      const element = document.createElement('div')
+      element.className = 'marker'
+      const marker = new tt.Marker({
+        draggable:true,
+        element:element,
+      })
+      .setLngLat([longitude, latitude])
+      .addTo(map)
+    }
+    addMarker()
+
+    return () => map.remove()
   }, [longitude, latitude])
   return (
-    <div className="App">
+    <>
+   { map && <div className="App">
       <div ref={mapElement} className='map'></div>
       <div className='searchBar'>
         <h1>Where to?</h1>
@@ -47,7 +62,8 @@ const App=() => {
         onChange={(e) => {setlatitude(e.target.value)}}
         />
       </div>
-    </div>
+    </div> }
+    </>
   );
 }
 
